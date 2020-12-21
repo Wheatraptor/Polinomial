@@ -105,14 +105,14 @@ double TMonom::getC() const
 }
 
 
-void TMonom::setNext(TMonom* next)
+void TMonom::setNext(TMonom* _next)
 {
-    this->next = next;
+    this->next = _next;
 }
 
-void  TMonom::setPrev(TMonom* prev) 
+void  TMonom::setPrev(TMonom* _prev) 
 {
-    this->prev = prev;
+    this->prev = _prev;
 }
 
 

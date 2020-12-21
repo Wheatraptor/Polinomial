@@ -240,25 +240,28 @@ inline ostream& operator<<(ostream& ostr, TPolinomial& _v)
 
 inline istream& operator>>(istream& istr, TPolinomial& _v)
 {
-    TPolinomial tmp = _v;
+    TPolinomial* tmp = new TPolinomial();
     TMonom* tmp2;
     TMonom tmp3;
     int n;
     tmp2 = new TMonom();
-    tmp.setMonom(tmp2);
+    //tmp->setMonom(tmp2);
     std::cout << "Input n: ";
     cin >> n;
+    int k = 0;
     for (int i = 0; i < n; i++) {
         std::cout << "Input monom: ";
         cin >> tmp3;
         //tmp.setMonom(&tmp2);
-        if (tmp2 == nullptr)
-            tmp2 = new TMonom();
-        *tmp2 = tmp3;
+        tmp2 = new TMonom(tmp3);
+        if (!k){
+            tmp->setMonom(tmp2);
+            k++;
+        }
         tmp2->setNext(new TMonom());
         tmp2 = tmp2->getNext();
     }
-    _v = tmp;
+    _v = *tmp;
     return istr;
 }
 
