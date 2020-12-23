@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main()
+void main()
 {
 	TMonom m;
 	TPolinomial p;
@@ -11,5 +11,4 @@ int main()
 	//cout << m << endl;
 	cin >> p;
 	cout << p;
-	return 0;
 }

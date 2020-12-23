@@ -6,8 +6,8 @@ C:\Users\matve\source\repos\Polynomial\Polynomial\Monom.h(181,16): warning C4244
 C:\Users\matve\source\repos\Polynomial\Polynomial\Monom.h(182,16): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 C:\Users\matve\source\repos\Polynomial\Polynomial\Monom.h(183,16): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 C:\Users\matve\source\repos\Polynomial\Polynomial\Monom.h(193,24): warning C4390: ";": обнаружен пустой контролируемый оператор; это правильно?
-C:\Users\matve\source\repos\Polynomial\Polynomial\Polynomial.h(189,101): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\matve\source\repos\Polynomial\Polynomial\Polynomial.h(189,87): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\matve\source\repos\Polynomial\Polynomial\Polynomial.h(189,73): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\matve\source\repos\Polynomial\Polynomial\Polynomial.h(103): warning C4715: TPolinomial::operator=: значение возвращается не при всех путях выполнения
+C:\Users\matve\source\repos\Polynomial\Polynomial\Polynomial.h(169,101): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\matve\source\repos\Polynomial\Polynomial\Polynomial.h(169,87): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\matve\source\repos\Polynomial\Polynomial\Polynomial.h(169,73): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\matve\source\repos\Polynomial\Polynomial\Source.cpp(7,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
   Polynomial.vcxproj -> C:\Users\matve\source\repos\Polynomial\Debug\Polynomial.exe

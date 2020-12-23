@@ -65,7 +65,7 @@ TMonom::TMonom(const TMonom& _v)
 TMonom::~TMonom() {
     TMonom* tmp = this;
     TMonom* del = this;
-    while (tmp->next != nullptr){
+    while (tmp->getNext() != nullptr){
         del = tmp;
         tmp = tmp->getNext();
         delete del;

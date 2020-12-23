@@ -69,9 +69,9 @@ void TPolinomial::setMonom(TMonom* _monom) {
     monom = _monom;
 }
 
-TPolinomial& TPolinomial::operator = (TPolinomial& _v)//Бекетов
+TPolinomial& TPolinomial::operator = (TPolinomial& _v)
 {
-    if (monom != nullptr)
+    if (_v.monom != nullptr)
     {
         TMonom* tmp = monom;
         while (tmp != nullptr)
@@ -83,9 +83,7 @@ TPolinomial& TPolinomial::operator = (TPolinomial& _v)//Бекетов
         monom = nullptr;
 
         if (_v.monom == nullptr)
-        {
             monom = nullptr;
-        }
         else
         {
             monom = new TMonom(*_v.monom);
@@ -98,71 +96,53 @@ TPolinomial& TPolinomial::operator = (TPolinomial& _v)//Бекетов
                 tmp2 = tmp2->getNext();
             }
         }
-        return *this;
     }
+    return *this;
 }
 
 
-TPolinomial& TPolinomial::operator += (TMonom & _v)
+TPolinomial& TPolinomial::operator += (TMonom& _v)
 {
-  TMonom* p = monom;
-  if (monom != nullptr)
-  {
-    while (p->getNext() != 0)
+    TMonom* p = monom;
+    if (monom != nullptr)
     {
-      if (*p == _v)
-      {
-        p->setK(p->getK() + _v.getK());
-        return (*this);
-      }
-      else if (*p < _v)
-      {
-        TMonom* cop = new TMonom(_v);
-        cop->setPrev(p->getPrev());
-        cop->setNext(p);
-        p->getPrev()->setNext(cop);
-        p->setPrev(cop);
-        return (*this);
-      }
+        if (*p < _v) {
+            TMonom* cop = new TMonom(_v);
+            p->setPrev(cop);
+            monom = cop;
+            cop->setNext(p);
+        }
+        else 
+        {
+            while (p->getNext() != 0)
+            {
+                if (*p == _v)
+                {
+                    p->setK(p->getK() + _v.getK());
+                    return (*this);
+                }
+                else if (*p < _v)
+                {
+                    TMonom* cop = new TMonom(_v);
+                    cop->setPrev(p->getPrev());
+                    cop->setNext(p);
+                    p->getPrev()->setNext(cop);
+                    p->setPrev(cop);
+                    return (*this);
+                }
+            }
+            TMonom* cop = new TMonom(_v);
+            cop->setPrev(p);
+            p->setNext(cop);
+        }
     }
-    TMonom* cop = new TMonom(_v);
-    cop->setPrev(p);
-    p->setNext(cop);
-    }
-    else {
-      monom = new TMonom(_v);
-    }
+    else
+        monom = new TMonom(_v);
     return (*this);
- }
+}
 
 
-
-//TPolinomial& TPolinomial::operator* (TPolinomial & _v)//Манухов
-//{  //(a + b) * (c + d) = a*c + a*d + b*c + b*d
-//  if (monom != nullptr && _v.monom != nullptr)
-//  {
-//    TPolinomial temp;
-//    TMonom* tmp_0 = monom;
-//    while (tmp_0 != nullptr)
-//    {
-//      TMonom* tmp_1 = _v.monom;
-//      while (tmp_1 != nullptr)
-//      {
-//        temp.monom += (*tmp_0) * (*tmp_1);
-//        tmp_1 = tmp_1->getNext();
-//      }
-//      tmp_0 = tmp_0->getNext();
-//    }
-//    return temp;
-//  }
-//  else
-//  {
-//    throw - 1;
-//  }
-//}
-
-
-TPolinomial TPolinomial::operator + (TPolinomial & _v)//Калашников
+TPolinomial TPolinomial::operator + (TPolinomial & _v)
 {
   TMonom* tmp1 = monom;
   TMonom* tmp2 = _v.monom;
@@ -230,39 +210,39 @@ TPolinomial TPolinomial::operator + (TPolinomial & _v)//Калашников
 inline ostream& operator<<(ostream& ostr, TPolinomial& _v)
 {
     TPolinomial* tmp = new TPolinomial(_v);
-    if (tmp->getMonom() != nullptr)    
-        while (tmp->getMonom()->getNext() != nullptr) {
-            ostr << *(tmp->getMonom()) << '+';
+    if (tmp->getMonom() != nullptr)
+    {
+        ostr << *(tmp->getMonom());
+        if (tmp->getMonom()->getNext() != nullptr)
+        {
             tmp->setMonom(tmp->getMonom()->getNext());
+            while (tmp->getMonom() != nullptr) {
+                ostr << " + " << *(tmp->getMonom());
+                tmp->setMonom(tmp->getMonom()->getNext());
+            }
         }
+        ostr << "\n";
+    }
     return ostr;
 }
 
-inline istream& operator>>(istream& istr, TPolinomial& _v)
-{
-    TPolinomial* tmp = new TPolinomial();
-    TMonom* tmp2;
-    TMonom tmp3;
-    int n;
-    tmp2 = new TMonom();
-    //tmp->setMonom(tmp2);
-    std::cout << "Input n: ";
-    cin >> n;
-    int k = 0;
-    for (int i = 0; i < n; i++) {
-        std::cout << "Input monom: ";
-        cin >> tmp3;
-        //tmp.setMonom(&tmp2);
-        tmp2 = new TMonom(tmp3);
-        if (!k){
-            tmp->setMonom(tmp2);
-            k++;
-        }
-        tmp2->setNext(new TMonom());
-        tmp2 = tmp2->getNext();
-    }
-    _v = *tmp;
-    return istr;
-}
+inline istream& operator>>(istream& istr, TPolinomial& _v)  
+{                                                           
+    TPolinomial* tmp = new TPolinomial();                   
+    TMonom* tmp2;                                           
+    TMonom tmp3;                                            
+    int n;                                                  
+    tmp2 = new TMonom();                                                                     
+    std::cout << "Input n: ";                               
+    cin >> n;                                               
+    int k = 0;                                              
+    for (int i = 0; i < n; i++) {                           
+        std::cout << "Input monom: ";                       
+        cin >> tmp3;                                        
+        *tmp += tmp3;
+    }                                                       
+    _v = *tmp;                                             
+    return istr;                                           
+}                                                          
 
 #endif    
